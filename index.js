@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const testingRouter = require('./src/routes/testing');
+const tenantController = require('./src/controllers/auth/tenantController');
 
 app.use(express.json());
 app.use(
@@ -14,8 +14,11 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// Start the server
-app.use("/programming-languages", testingRouter);
+app.post('/tenant', tenantController.createTenant);
+app.post('/login', tenantController.login);
+app.post('/qrcode', tenantController.createQRCode);
+app.get('/verify_admin', tenantController.verifyAdmin);
+app.get('/verify_customer', tenantController.verifyCustomer);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
