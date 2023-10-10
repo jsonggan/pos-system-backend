@@ -9,11 +9,14 @@ const token = jwt.sign({ foo: 'bar' }, process.env.SECRET_KEY, { expiresIn: '1h'
 
 // Generate QR code
 QRCode.toDataURL(`https://jsonggan.github.io/pos-system/?token=${token}`, function (err, url) {
-  console.log(url);
 });
 
 exports.createTenant = async (req, res) => {
-  // Implement your function here
+  // console.log(req.headers.authorization);
+  // console.log(req.body.email);
+  const token = req.headers.authorization;
+  console.log(JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()));
+  res.send("correct path")
 };
 
 exports.login = async (req, res) => {
