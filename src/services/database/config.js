@@ -1,12 +1,13 @@
+require('dotenv').config();
+
 const config = {
   db: {
-    /* don't expose password or any sensitive info, done only for demo */
-    host: "localhost",
-    user: "songnux",
-    port: 33061,
-    password: "020919",
-    database: "pos_system",
-    connectTimeout: 60000
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    connectTimeout: process.env.DB_CONNECT_TIMEOUT
   },
   listPerPage: 10,
 };
