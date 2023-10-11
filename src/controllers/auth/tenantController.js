@@ -13,7 +13,6 @@ const knex = require('../../services/database/knex.js');
 
 exports.createTenant = async (req, res) => {
   if (!req.body.email) {
-    console.log(req.body)
     return res.status(400).send("Email is required");
   }
 
@@ -55,8 +54,35 @@ exports.login = async (req, res) => {
   // Implement your function here
 };
 
-exports.createQRCode = async (req, res) => {
-  // Implement your function here
+exports.generateQRCode = async (req, res) => {
+  if (!req.body.tenant_id) {
+    return res.status(400).send("tenant_id is required");
+  }
+
+  if (!req.body.table_no) {
+    return res.status(400).send("table_no is required");
+  }
+
+  if (!req.body.company_name) {
+    return res.status(400).send("company_name is required");
+  }
+
+  const tenant = await knex('tenant').where('tenant_id', req.body.tenant_id).first();
+
+  if (!tenant) {
+    return res.status(400).send("Tenant not found");
+  }
+
+  const company = await knex('company').where('company_name', req.body.company_name).first();
+
+  if (!company) {
+    return res.status(400).send("Company not found");
+  }
+
+  const table = await knex('table').where('table_name', req.body.table_no).first();
+
+  console.log(tenant);
+  return res.status(200).send('asd');
 };
 
 exports.verifyAdmin = async (req, res) => {

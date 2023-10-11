@@ -12,4 +12,7 @@ const checkJwt = auth({
 // route to create a tenant
 router.route('/createTenant').post(checkJwt, tenantController.createTenant);
 
+// route to generate qr code for table
+router.route('/generateQRCode').post(checkJwt, tenantController.generateQRCode);
+
 module.exports = router;
