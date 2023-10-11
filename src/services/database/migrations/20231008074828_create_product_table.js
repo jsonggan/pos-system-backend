@@ -9,7 +9,7 @@ exports.up = function(knex) {
     table.decimal('unit_price', 10, 3).notNullable();
     table.boolean('is_available').defaultTo(true);
     table.decimal('discount_percentage', 6, 3).defaultTo(0);
-    table.integer('tenant_id').unsigned().notNullable();
+    table.uuid('tenant_id').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
 
     table.foreign('tenant_id').references('tenant_id').inTable('tenant');

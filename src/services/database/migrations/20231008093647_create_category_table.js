@@ -7,7 +7,7 @@ exports.up = function(knex) {
   .createTable('category', function (table) {
     table.increments('category_id').primary();
     table.string('category_name').notNullable();
-    table.integer('tenant_id').unsigned().notNullable();
+    table.uuid('tenant_id').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
     
     // Define foreign key to reference the tenant table (assuming you have one)

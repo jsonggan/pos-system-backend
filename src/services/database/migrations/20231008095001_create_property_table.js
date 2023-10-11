@@ -8,7 +8,7 @@ exports.up = function(knex) {
     table.string('property_name');
     table.boolean('is_compulsory').notNullable();
     table.string('category');
-    table.integer('tenant_id').unsigned().notNullable();
+    table.uuid('tenant_id').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
 
     // Define foreign key to reference the tenant table (assuming you have one)
