@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.post('/create_tenant', tenantController.createTenant);
+app.post('/createTenant', tenantController.createTenant);
 app.post('/login', tenantController.login);
 app.post('/qrcode', tenantController.createQRCode);
 app.get('/verify_admin', tenantController.verifyAdmin);
