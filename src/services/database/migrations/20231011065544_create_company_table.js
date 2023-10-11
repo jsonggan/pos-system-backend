@@ -7,6 +7,9 @@ exports.up = function(knex) {
     table.increments('company_id').primary();
     table.string('company_name').notNullable().unique();
     table.string('country').notNullable();
+    table.uuid('tenant_id').notNullable();
+
+    table.foreign('tenant_id').references('tenant_id').inTable('tenant');
   })
 };
 
