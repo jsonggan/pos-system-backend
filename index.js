@@ -1,18 +1,10 @@
 const express = require('express');
 const app = express();
-const tenantController = require('./src/controllers/auth/tenantController');
-const { auth } = require('express-oauth2-jwt-bearer');
-
-const checkJwt = auth({
-  audience: 'http://localhost:3006/pos-system-admin/',
-  issuerBaseURL: `https://dev-hk5hn21iuhqqo500.us.auth0.com/`,
-  tokenSigningAlg: 'RS256'
-});
+const router = express.Router();
+const tenantRoute = require('./src/routes/tenantRoute');
 
 var cors = require('cors')
-
 app.use(cors())
-app.use(checkJwt);
 
 app.use(express.json());
 app.use(
@@ -21,16 +13,14 @@ app.use(
   })
 );
 
-// Define your routes here
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Welcome to Makan!');
 });
 
-app.post('/createTenant', tenantController.createTenant);
-app.post('/login', tenantController.login);
-app.post('/qrcode', tenantController.createQRCode);
-app.get('/verify_admin', tenantController.verifyAdmin);
-app.get('/verify_customer', tenantController.verifyCustomer);
+// route that only allow owner access
+router.use("/owner", tenantRoute);
+
+app.use(router);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
