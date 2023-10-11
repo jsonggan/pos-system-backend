@@ -13,5 +13,8 @@ module.exports = {
     migrations: {
       directory: './src/services/database/migrations',
     },
+    seeds: {
+      directory: './src/services/database/seeds',
+    },
   },
 };
